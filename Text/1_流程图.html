@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .structure {
+      text-align: center;
+      position: relative;
+    }
+    .title {
+      font-weight: 700;
+    }
+    .detail {
+      background-color:#A9A9A9;
+      padding: 10px 40px 10px 40px;
+      margin: 0 auto;
+    }
+    .content-one {
+      width: 400px;
+      height: 100px;
+    }
+    .content-two {
+      width: 400px;
+      height: 400px;
+    }
+    .content-three {
+      display: flex;
+    }
+    .content-four {
+      width: 400px;
+      height: 180px;
+    }
+    .information {
+      width: 300px;
+      height: 180px;
+      background-color:#A9A9A9;
+      padding: 10px 40px 10px 40px;
+      margin: 0 auto;
+    }
+
+    .line {
+      width: 2px;
+      height: 100px;
+      margin: 0 auto;
+      background-color: #1E90FF;
+      display: flex;
+      justify-content: center;
+    }
+
+    .line1 {
+      width: 2px;
+      height: 486px;
+      margin: 0 auto;
+      background-color: #1E90FF;
+      transform:rotate(78deg);
+      position: absolute;
+      left: 472px;
+      top: 514px;
+    }
+
+    /* .line2 {
+      width: 980px;
+      height: 2px;
+      background-color: #1E90FF;
+      position: absolute;
+      margin-top: 50px;
+    } */
+
+    .footer {
+      width: 90%;
+      height: 1000px;
+      border: 1px solid;
+      margin: 0 auto;
+      border-radius: 20px;
+    }
+
+    .footer-one {
+      background-color:#A9A9A9;
+      width: 200px;
+      height: 150px;
+      margin: 50px 25px 0 25px;
+      display: inline-block;
+    }
+
+    .xie {
+      /* transform: rotate(90deg); */
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .xieline{
+      width:400px;
+      /* float: left; */
+      height:400px;
+    }
+    .xiexian1 {
+      border-right: 2px solid #1E90FF;
+      background:
+        linear-gradient(135deg, transparent 49.7%, #1E90FF 49.7%, #1E90FF 50.3%, transparent 50.3%);
+    }
+    .xiexian2{
+      border-left: 2px solid #1E90FF;
+      background:
+        linear-gradient(45deg, transparent 49.7%, #1E90FF 49.7%, #1E90FF 50.3%, transparent 50.3%);
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="structure">
+    <h1>广西投资集团有限公司产权结构图</h1>
+
+    <div class="content">
+      <div class="detail content-one">
+        <p class="title">出资人</p>
+        <p>广西壮族自治区国有资产监督管理委员会持股 100%</p>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="detail content-two">
+        <p class="title">广西投资集团有限公司</p>
+        <p>注册时间：<span>1996年3月8日</span></p>
+        <p>注册地点：<span>南宁市青秀区民族大道109号广西投资大夏</span></p>
+        <p>注册资本：<span>1,000,000 万元</span></p>
+        <p>企业类别：<span>国有全资企业</span></p>
+        <p>组织形式：<span>有限责任公司</span></p>
+        <p>企业级次：<span>1级</span></p>
+        <p>企业级次：<span>1级</span></p>
+        <p>公司主业：<span>能源、矿业、金融业、文化旅游、房地产业、肥料行业、医疗机构及医药制造业的投资及管理等</span></p>
+      </div>
+      <!-- <div class="line1"></div> -->
+
+      <!-- <div class="line">
+        <p class="line2"></p>
+      </div> -->
+
+      <div class="xie">
+        <div class="xieline xiexian1"></div>
+        <div class="xieline xiexian2"></div>
+      </div>
+
+
+      <div class="content-three">
+        <div class="information">
+          <p class="title">监事会</p>
+          <p>主席：<span>（空缺）</span></p>
+          <p>成员：<span>吕春蓉、郑英林</span></p>
+        </div>
+        <div class="information">
+          <p class="title">董事会</p>
+          <p>董事长：<span>周炼</span></p>
+          <p>副董事长：<span>李斌</span></p>
+          <p>董  事：<span>罗军、廖应灿、王清堂、王晓松</span></p>
+        </div>
+        <div class="information">
+          <p class="title">党委</p>
+          <p>书  记：<span>周炼</span></p>
+          <p>副书记：<span>李斌、何春梅、廖应灿</span></p>
+          <p>委  员：<span>吴法、罗军、刘洪、杨冬野、张佩云</span></p>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="detail content-four">
+        <p class="title">经理层</p>
+        <p>总经理：<span>李斌</span></p>
+        <p>副总经理：<span>副总经理：刘洪、杨冬野、刘旭、焦明</span></p>
+        <p>总会计师：<span>张佩云</span></p>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <!-- <div class="footer">
+      <div class="footer-one">
+        <p class="title">办公室\董事会办公室\党委办公室</p>
+        <p>电话：<span>0771-5533730</span></p>
+        <p>传真：<span>0771-5533308</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">人力资源部</p>
+        <p>电话：<span>0771-5554360</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">财务部</p>
+        <p>电话：<span>0771-5533105</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">战略发展部</p>
+        <p>电话：<span>07715583280</span></p>
+      </div><div class="footer-one">
+        <p class="title">安环与经营管理部</p>
+        <p>电话：<span>07715533125</span></p>
+      </div><div class="footer-one">
+        <p class="title">党群工作部\工会办公室</p>
+        <p>电话：<span>07715586863</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">风控与外派人员管理部\监事会工作部</p>
+        <p>电话：<span>07715583285</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">法律合规部</p>
+        <p>电话：<span>0771 5537193</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">审计部</p>
+        <p>电话：<span>0771 5533169</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">纪检监察部\党委巡察组</p>
+        <p>电话：<span>0771 5586831</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">全面深化国企改革办公室</p>
+        <p class="title">电话：<span>07715533086</span></p>
+      </div>
+      <div class="footer-one">
+        <p class="title">安环与经营管理部/“产融投”协同发展办公室</p>
+        <p class="title">电话：<span>07715586929</span></p>
+      </div> -->
+
+    <!-- </div> -->
+  </div>
+  <div class="sanjiaoxing"></div>
+
+</body>
+</html>

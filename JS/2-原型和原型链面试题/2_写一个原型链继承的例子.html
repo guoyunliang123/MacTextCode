@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 动物
+    function Animal() {
+      this.eat = function() {
+        console.log('animal eat');
+      }
+    }
+    // 狗
+    function Dog() {
+      this.back = function() {
+        console.log('dog back');
+      }
+    }
+    Dog.prototype = new Animal();
+
+    // 哈士奇
+    var hashiqi = new Dog();
+    // hashiqi 的属性： back() eat()
+  </script>
+</body>
+</html>

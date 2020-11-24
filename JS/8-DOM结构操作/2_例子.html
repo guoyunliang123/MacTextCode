@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="div1" class="class-div1">
+    <p id="p1" data-name="p1-data-name">this is p1</p>
+    <p id="p2">this is p2</p>
+  </div>
+  <div id="div2" class="class-div2">
+    <p id="p3">this is p4</p>
+    <p id="p4">this is p4</p>
+  </div>
+
+  <script>
+    var div1 = document.getElementById('div1');
+    var p4 = document.getElementById('p4');
+    console.log(div1.childNodes);
+    console.log(div1.childNodes[0].nodeType);
+    console.log(div1.childNodes[1].nodeType);
+    console.log(div1.childNodes[0].nodeName);
+    console.log(div1.childNodes[1].nodeName);
+  </script>
+</body>
+</html>

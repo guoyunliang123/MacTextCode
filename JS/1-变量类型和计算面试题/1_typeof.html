@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>typeof 可以得到哪些类型</title>
+</head>
+<body>
+  <script>
+    // typeof 只能区分值类型，无法区分引用类型
+    const fn = function(){};
+    console.log(typeof fn); // function
+    console.log(typeof null); // object
+    console.log(typeof {}); // object
+    console.log(typeof []); // object
+    console.log(typeof 20); // number
+    console.log(typeof 'str'); // string
+    console.log(typeof true); // boolean
+    console.log(typeof undefined); // undefined
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="div1" class="class-div1">
+    <p id="p1" data-name="p1-data-name">this is p1</p>
+    <p id="p2">this is p2</p>
+  </div>
+  <div id="div2" class="class-div2">
+    <p id="p3">this is p4</p>
+    <p id="p4">this is p4</p>
+  </div>
+
+  <script>
+    var div1 = document.getElementById('div1');
+    var divList = document.getElementsByTagName('div');
+    // console.log(divList);
+    // property
+    console.log(div1.className);
+    div1.className = 'abc, dd';
+    console.log(div1.className);
+    // Attribute
+    var p1 = document.getElementById('p1');
+    console.log(p1.getAttribute('data-name'));
+    p1.setAttribute('data-name', 'imooc')
+
+    var pList = document.querySelectorAll('p');
+    // console.log(pList);
+
+    
+
+  </script>
+</body>
+</html>

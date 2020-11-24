@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    // var a = function(){
+    //   this.b = 3;
+    // }
+    // var c = new a();
+    // a.prototype.b = 9;
+    // var b = 7;
+    // a();
+    // console.log(b);
+    // console.log(c.b);
+
+    // const arr = ['一审', '二审', '三审'];
+    // console.log(arr.join(','));
+
+
+    const arr = [
+      {
+        name: 'zhangsan',
+        age: '20'
+      },
+      {
+        name: 'zhangsan',
+        age: '30.1'
+      },
+      {
+        name: 'zhangsan',
+        age: '10.222'
+      },
+    ];
+    let num = arr.map(item => item.age).reduce((total, num) => parseFloat(total) + parseFloat(num));
+    console.log(num);
+  </script>
+</body>
+</html>

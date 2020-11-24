@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+
+    var b = {x: 4};
+    function fn2(o) {
+      this.x = o.x;
+    }
+
+    fn2.prototype = {
+      init: function(){
+        return this.x;
+      }
+    }
+
+    var fn3 = new fn2({x: 5});
+    console.log('fn3.init()--', fn3.init());
+    console.log('fn3.init == fn2.init--', fn3.init == fn2.init);
+    console.log('fn3.init.call(b)--', fn3.init.call(b));
+    var c = fn3.init;
+    console.log('c()--', c());
+  </script>
+</body>
+</html>

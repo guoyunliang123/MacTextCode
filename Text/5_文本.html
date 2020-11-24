@@ -1,0 +1,552 @@
+import React, { PureComponent, Component, Fragment, useState } from 'react';
+import { connect } from 'dva';
+import {
+  Input,
+  Tree,
+  Col,
+  Row,
+  Card,
+  Table,
+  Popconfirm,
+  Button,
+  Tooltip,
+  Icon,
+  Select,
+  Form,
+  Radio,
+  Modal,
+  Layout,
+  DatePicker,
+  TreeSelect,
+  message,
+  Cascader
+} from 'antd';
+import moment from 'moment';
+import styles from '@/style/common.less';
+import AllModal from '../../components/AllModal';
+
+const Search = Input.Search;
+const { TreeNode } = Tree;
+const { Option } = Select;
+const FormItem = Form.Item;
+const { confirm } = Modal;
+const { TextArea } = Input;
+const { RangePicker } = DatePicker;
+
+
+@connect(({ equityManagementModelJs }) => ({
+  equityManagementModelJs,
+}))
+class SearchForm extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAllUserModal: false,
+      isAdd: false,
+      saveData: {},
+      riskTypeData:[],
+      eventTypeData:[],
+      pageSize:5,
+      total:100,
+      pageNum:''
+    };
+  }
+
+  componentDidMount() {
+
+    // 获取数据字典
+    this.ZDData()
+
+    const {saveData} = this.state;
+    saveData.companyId = 16;
+    saveData.pageNum = 5;
+    saveData.pageSize = 1;
+  }
+  ZDData=()=>{
+    const { dispatch } = this.props;
+    const arr = ['0803','0804']
+    dispatch({
+      type: 'equityManagementModelJs/newCompanyInfo',
+      payload: arr,
+      callback: ({ success, data }) => {
+        if (success) {
+          const arr = this.addKey(data[1].childNodeList);
+          this.setState({
+            riskTypeData: arr,
+            eventTypeData:data[0].childNodeList
+          });
+        }
+      },
+    });
+  }
+  // 数据类型转化
+  addKey = (arr) =>
+    arr.map((item) => ({
+      value: item.fId.toString(),
+      label: item.fCnName,
+      code: item.fCode,
+      children:
+        item.childNodeList.length  ? this.addKey(item.childNodeList) : null,
+    }));
+  okHandle=()=>{
+
+  }
+
+  handleHide = () => {
+    this.setState({
+      showAllUserModal: false,
+    });
+  };
+
+  newCompanyInfoBtn = () => {
+    const { form } = this.props;
+    const { saveData, isAdd } = this.state;
+    form.validateFields((err, fieldsValue) => {
+      if (!err) {
+
+        const tempObj = Object.assign({}, fieldsValue);
+        let newData = {};
+
+        if (isAdd) {
+          newData = Object.assign(tempObj, saveData);
+        } else {
+          newData = Object.assign(saveData, tempObj);
+        }
+
+        console.log(newData);
+        const companyInfoObj = {
+          fCompanyName: newData.fCompanyName,
+          fAbbreviation: newData.fAbbreviation,
+          fManageSubject: newData.fManageSubject,
+          fRegisteredApital: newData.fRegisteredApital,
+          fActualApital: newData.fActualApital,
+          fContryApital: newData.fContryApital,
+          fRegisteredDate: newData.fRegisteredDate,
+          fRegisteredAddress: newData.fRegisteredAddress,
+          fLegalPerson: newData.fLegalPerson,
+          fPartyForm: newData.fPartyForm,
+          fCommpanyType: newData.fCommpanyType,
+          fIndustry: newData.fIndustry,
+          fIscontryCapital: newData.fIscontryCapital,
+          fSuperviseMechanism: newData.fSuperviseMechanism,
+          fIschange: newData.fIschange,
+          fCreditCode: newData.fCreditCode,
+          fIsabroad: newData.fIsabroad,
+          fBusinessScope: newData.fBusinessScope,
+          fBrief: newData.fBrief,
+          fPlate: newData.fPlate,
+          fGtControl: newData.fGtControl,
+        };
+        const companyApitalInfosObj = {
+
+        };
+
+        console.log(companyInfoObj);
+        // this.saveRiskCheckPlan(paramsObj);
+      } else {
+        message.warning('您有必填项未填写！');
+      }
+    });
+  };
+
+  // 改变每页数量
+  changePageSize=(current, pageSize)=>{
+    console.log(current, pageSize)
+    this.setState({pageSize})
+  }
+  // 改变页码
+  changePageNum=(page, pageSize)=>{
+    console.log(page, pageSize)
+  }
+
+  render() {
+    const { form, } = this.props;
+    const { tabList, tabList1, saveData, showAllUserModal} = this.state;
+    const formItemLayout = {
+      labelCol: { span: 9 },
+      wrapperCol: { span: 15 },
+    };
+    const formItemLayout1 = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 21 },
+    };
+    const formItemLayout2 = {
+      labelCol: { span: 5 },
+      wrapperCol: { span: 19 },
+    };
+    const columns = [
+      {
+        title: '序号',
+        fixed: 'left',
+        align:'center',
+        width: 70,
+        render: (text, record, index) => {
+          return index + 1;
+        },
+      },
+      {
+        title: '企业名称',
+        align:'center',
+        dataIndex: 'value2',
+      },
+      {
+        title: '持股比例',
+        align:'center',
+        dataIndex: 'value3',
+      },
+    ];
+    const columns1 = [
+      {
+        title: '序号',
+        fixed: 'left',
+        align:'center',
+        width: 70,
+        render: (text, record, index) => {
+          return index + 1;
+        },
+      },
+      {
+        title: '类别',
+        width: 140,
+        align:'center',
+        dataIndex: 'value2',
+      },
+      {
+        title: '名称',
+        align:'center',
+        ellipsis: true,
+        dataIndex: 'value3',
+      },
+      {
+        title: '开始时间',
+        width: 160,
+        align:'center',
+        ellipsis: true,
+        dataIndex: 'value4',
+      },
+      {
+        title: '结束时间',
+        width: 160,
+        align:'center',
+        ellipsis: true,
+        dataIndex: 'value5',
+      },
+      {
+        title: '附件',
+        width: 160,
+        align:'center',
+        ellipsis: true,
+        dataIndex: 'value6',
+      },
+    ];
+    return (
+      <Layout>
+        <div style={{ marginBottom: 10 }}>
+          <Button
+              style={{
+                marginRight: 2,
+                backgroundColor: '#3B99FC',
+                color: '#fff',
+                border: 'none',
+              }}
+              onClick={() => {
+                this.newCompanyInfoBtn();
+              }}
+            >
+              提交
+          </Button>
+        </div>
+        {showAllUserModal ? (
+          <AllModal
+            // type={type}
+            showAllUserModal={showAllUserModal}
+            handleHide={this.handleHide}
+            handleOk={this.handleOk}
+          />
+        ) : null}
+        <Card title="单位基本信息">
+          <Row style={{ background: 'white'}}>
+            <Col span={12}>
+              <FormItem {...formItemLayout2} label="企业名称">
+                {form.getFieldDecorator('fCompanyName', {
+                  initialValue: saveData.fCompanyName
+                    ? saveData.fCompanyName
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout2} label="企业简称">
+                {form.getFieldDecorator('fAbbreviation', {
+                  initialValue: saveData.fAbbreviation
+                    ? saveData.fAbbreviation
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout2} label="管理主体">
+                {form.getFieldDecorator('fManageSubject', {
+                  initialValue: saveData.fManageSubject
+                    ? saveData.fManageSubject
+                    : undefined,
+                })(<Input className={styles.inPutClass2} readOnly/>)}
+                <Button
+                  style={{marginRight: 10, marginLeft: 10}}
+                  type="primary"
+                  onClick={() => {
+                    this.setState({
+                      showAllUserModal: true,
+                    });
+                  }}
+                >选择</Button>
+                <Button type="primary">录入外部单位</Button>
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout2} label="注册资本">
+                {form.getFieldDecorator('fRegisteredApital', {
+                  initialValue: saveData.fRegisteredApital
+                    ? saveData.fRegisteredApital
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="实收资本">
+                {form.getFieldDecorator('fActualApital', {
+                  initialValue: saveData.fActualApital
+                    ? saveData.tifActualApitalme
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="国有资本">
+                {form.getFieldDecorator('fContryApital', {
+                  initialValue: saveData.fContryApital
+                    ? saveData.fContryApital
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="注册日期">
+                {form.getFieldDecorator('fRegisteredDate', {
+                  initialValue: saveData.fRegisteredDate
+                    ? saveData.fRegisteredDate
+                    : undefined,
+                })(<DatePicker style={{width: '100%'}} />)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="注册地">
+                {form.getFieldDecorator('fRegisteredAddress', {
+                  initialValue: saveData.fRegisteredAddress
+                    ? saveData.fRegisteredAddress
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+                {form.getFieldDecorator('fLegalPerson', {
+                  initialValue: saveData.fLegalPerson
+                    ? saveData.fLegalPerson
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="组织形式">
+                {form.getFieldDecorator('fPartyForm', {
+                  initialValue: saveData.fPartyForm
+                    ? saveData.fPartyForm
+                    : undefined,
+                })(<Input placeholder="请输入"/>)}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="企业类别">
+                {form.getFieldDecorator('fCommpanyType', {
+                  initialValue: saveData.fCommpanyType
+                    ? saveData.fCommpanyType
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="1">全部</Option>
+                    <Option value="2">类别一</Option>
+                    <Option value="3">类别二</Option>
+                    <Option value="4">类别三</Option>
+                    <Option value="5">类别四</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="所属行业">
+                {form.getFieldDecorator('fIndustry', {
+                  initialValue: saveData.fIndustry
+                    ? saveData.fIndustry
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="1">行业一</Option>
+                    <Option value="2">行业二</Option>
+                    <Option value="3">行业三</Option>
+                    <Option value="4">行业四</Option>
+                    <Option value="5">行业五</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="国家出资">
+                {form.getFieldDecorator('fIscontryCapital', {
+                  initialValue: saveData.fIscontryCapital
+                    ? saveData.fIscontryCapital
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="0">否</Option>
+                    <Option value="1">是</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="监管机构">
+                {form.getFieldDecorator('fSuperviseMechanism', {
+                  initialValue: saveData.fSuperviseMechanism
+                    ? saveData.fSuperviseMechanism
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="1">国资委</Option>
+                    <Option value="2">...</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="是否混改">
+                {form.getFieldDecorator('fIschange', {
+                  initialValue: saveData.fIschange
+                    ? saveData.fIschange
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="0">否</Option>
+                    <Option value="1">是</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="信用编码">
+                {form.getFieldDecorator('fCreditCode', {
+                  initialValue: saveData.fCreditCode
+                    ? saveData.fCreditCode
+                    : undefined,
+                })(<Input placeholder="请输入"/> )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="境内境外">
+                {form.getFieldDecorator('fIsabroad', {
+                  initialValue: saveData.fIsabroad
+                    ? saveData.fIsabroad
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="0">境外</Option>
+                    <Option value="1">境内</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="集团控股/参股">
+                {form.getFieldDecorator('fGtControl', {
+                  initialValue: saveData.fGtControl
+                    ? saveData.fGtControl
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="0">参股</Option>
+                    <Option value="1">控股</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem {...formItemLayout} label="所属板块">
+                {form.getFieldDecorator('fPlate', {
+                  initialValue: saveData.fPlate
+                    ? saveData.fPlate
+                    : undefined,
+                })(
+                  <Select style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="1">能源</Option>
+                    <Option value="2">金融</Option>
+                    <Option value="3">...</Option>
+                    <Option value="4">其他</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={24}>
+              <FormItem {...formItemLayout1} label="经营范围">
+                {form.getFieldDecorator('fBusinessScope', {
+                  initialValue: saveData.fBusinessScope
+                    ? saveData.fBusinessScope
+                    : undefined,
+                })(<TextArea rows={5} placeholder="请输入" />)}
+              </FormItem>
+            </Col>
+            <Col span={24}>
+              <FormItem {...formItemLayout1} label="简介">
+                {form.getFieldDecorator('fBrief', {
+                  initialValue: saveData.fBrief
+                    ? saveData.fBrief
+                    : undefined,
+                })(<TextArea rows={5} placeholder="请输入" />)}
+              </FormItem>
+            </Col>
+          </Row>
+        </Card>
+        <Card title="出资方信息" className={styles.margT}>
+          <div className={styles.margB}>
+          <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
+            添加
+          </Button>
+          </div>
+          <Table
+            dataSource={tabList}
+            columns={columns}
+            pagination={false}
+            bordered
+          />
+        </Card>
+        <Card title="合同/章程/证明/核准文件/协议/其他" className={styles.margT}>
+          <div className={styles.margB}>
+            <Button
+              type="primary"
+              onClick={() => {
+                this.setState({
+                  showOrganizationModal: true,
+                  type: 'gongzuozuinfo',
+                });
+              }}
+            >
+              添加
+            </Button>
+          </div>
+          <Table dataSource={tabList1} columns={columns1} pagination={false} bordered/>
+        </Card>
+      </Layout>
+    );
+  }
+}
+
+SearchForm = Form.create()(SearchForm);
+export default SearchForm;

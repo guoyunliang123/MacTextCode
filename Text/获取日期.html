@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    // const currentYearMonth = currentYear + "-" + this.appendZero(currentMonth);
+    function days(year,month){
+      var dayCount;
+      now = new Date(year,month, 0);
+      dayCount = now.getDate();
+      return dayCount;
+    }
+    // alert(days(2014,7))
+    console.log(currentYear);
+    console.log(currentMonth);
+    console.log(days(2021,2));
+  </script>
+</body>
+</html>
